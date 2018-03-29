@@ -16,8 +16,10 @@ class Website extends CI_Controller{
 	}
 
 	public function posts($halaman = "posts"){
+		$data["posts"] = $this->website_model->getPosts();
+
 		$this->load->view("templates/website/header");
-		$this->load->view("website/".$halaman);
+		$this->load->view("website/".$halaman, $data);
 	}
 
 	public function contact($halaman = "kontak"){
@@ -53,6 +55,17 @@ class Website extends CI_Controller{
 			$this->session->set_flashdata("gagal", "pesan gagal");
 			redirect("website/contact");
 		}
+	}
+
+	//read more
+	public function read($id){
+		$id = $this->uri->segment(3);
+		$where = array("id_posts" => $id);
+		$data["read"] = $this->website_model->read($where);
+
+		$this->load->view("templates/website/header");	
+		$this->load->view("website/read", $data);
+
 	}
 
 }

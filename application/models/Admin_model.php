@@ -33,6 +33,12 @@ class Admin_model extends CI_Model{
 		return $query;
 	}
 
+	//upload file
+	public function upload($data){
+		$query = $this->db->insert("posts", $data);
+		return $query;
+	}
+
 
 
 }

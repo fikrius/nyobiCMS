@@ -112,9 +112,14 @@
                     </select>
                   </div>
                 </div>
+
+                <!-- Tanggal upload -->
+                <input type="hidden" name="tanggal" value="<?php echo date('Y-m-d H:i:s'); ?>">
+                <!-- Tanggal Upload -->
+
                 <div class="col-md-2">
                   <div class="form-group">
-                    <input type="text" name="uploader" class="form-control" placeholder="<?php echo $this->session->userdata('nama'); ?>" readonly>
+                    <input type="text" name="uploader" class="form-control" value="<?php echo $this->session->userdata('nama'); ?>" readonly>
                   </div>
                 </div>
                 <div class="col-md-8">
@@ -131,10 +136,22 @@
               <div class="form-group">
                 <textarea name="isi" class="form-control" placeholder="Content" style="min-height: 40rem;"></textarea>
               </div>
-              <input type="submit" name="submit" class="btn btn-primary">
+              <input type="submit" name="submit" class="btn btn-primary" style="margin-bottom: 1rem;">
               <!-- Show error -->
-              <?php echo $pesan_error["error"]; ?>
+              <?php if($this->session->flashdata("error") === "error"){ ?>
+                <div class="alert alert-danger">
+                  Data gagal diupload
+                </div>
+              <?php } ?>
               <!-- /Show error -->
+
+              <!-- Show sukses -->
+              <?php if($this->session->flashdata("sukses") === "sukses"){ ?>
+                <div class="alert alert-success">
+                  Data berhasil diupload
+                </div>
+              <?php } ?>
+              <!-- /Show sukses -->
             </form>
           </div>
           <!-- /col -->

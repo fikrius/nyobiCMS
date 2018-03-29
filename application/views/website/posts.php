@@ -9,7 +9,6 @@
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url('assets/template/css/agency.css'); ?>" rel="stylesheet">
 
-
 </head>
 <body >
 
@@ -59,92 +58,25 @@
 	            </form>
         	</div>
         </div>
+
         <div class="row">
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <h3>Read More</h3>
+          <?php foreach($posts->result() as $row){ ?>
+              <div class="col-md-4 col-sm-6 portfolio-item">
+                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
+                  <div class="portfolio-hover">
+                    <div class="portfolio-hover-content">
+                    </div>
+                  </div>
+                  <img class="img-fluid" src="<?php echo base_url('upload/'.$row->gambar); ?>" alt="">
+                </a>
+                <div class="portfolio-caption">
+                  <a style="color: #293647; " href="<?php echo site_url('Website/read/'.$row->id_posts); ?>"><h4><?php echo $row->judul; ?></h4></a>
+                  <p class="text-muted"><?php echo $row->tanggal; ?></p>
                 </div>
               </div>
-              <img class="img-fluid" src="<?php echo base_url('assets/template/img/portfolio/01-thumbnail.jpg'); ?>" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Judul</h4>
-              <p class="text-muted">January, 12th 2018 - 12:35:10</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo base_url('assets/template/img/portfolio/01-thumbnail.jpg'); ?>" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Explore</h4>
-              <p class="text-muted">Graphic Design</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo base_url('assets/template/img/portfolio/01-thumbnail.jpg'); ?>" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Finish</h4>
-              <p class="text-muted">Identity</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo base_url('assets/template/img/portfolio/01-thumbnail.jpg'); ?>" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Lines</h4>
-              <p class="text-muted">Branding</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo base_url('assets/template/img/portfolio/01-thumbnail.jpg'); ?>" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Southwest</h4>
-              <p class="text-muted">Website Design</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo base_url('assets/template/img/portfolio/01-thumbnail.jpg'); ?>" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Window</h4>
-              <p class="text-muted">Photography</p>
-            </div>
-          </div>
+          <?php } ?>
         </div>
+
       </div>
     </section>
 
@@ -159,40 +91,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Modal 1 -->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="close-modal" data-dismiss="modal">
-            <div class="lr">
-              <div class="rl"></div>
-            </div>
-          </div>
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8 mx-auto">
-                <div class="modal-body">
-                  <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="<?php echo base_url('assets/template/img/portfolio/01-full.jpg'); ?>" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                  <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Threads</li>
-                    <li>Category: Illustration</li>
-                  </ul>
-                  <button style="background-color: #AE8913; color: white;" class="btn btn-lg" data-dismiss="modal" type="button">
-                    <i style="color: white;" class="fa fa-times"></i>
-                    Close Project</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="<?php echo base_url('assets/template/vendor/jquery/jquery.min.js'); ?>"></script>

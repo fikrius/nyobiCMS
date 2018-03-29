@@ -7,6 +7,10 @@ class Admin extends CI_Controller{
 		$this->load->helper(array("url"));
 		$this->load->model("admin_model");
 		$this->output->enable_profiler(TRUE);
+
+		//timezone set
+		date_default_timezone_set("Asia/Jakarta");
+
 		//cek session saat login ada atau tidak, jika tidk ada maka akan ditendang ke halaman login
 		if($this->session->userdata("sess_user") == ""){
 			redirect("auth/index");
@@ -27,17 +31,108 @@ class Admin extends CI_Controller{
 	public function write_post(){
 		$data["jumlah_pesan"] = $this->admin_model->jumlah_pesan();
 		$data["pesan_limit"] = $this->admin_model->get_cuplikan_pesan();
-		$data["pesan_error"] = array(
-			"error" => ""
-		);
 
 		$this->load->view("templates/admin/header");
 		$this->load->view("admin/write_post", $data);
 		$this->load->view("templates/admin/left_side");
 		$this->load->view("templates/admin/footer");
+		
 	}
 
 	public function send_post(){
+
+		if(isset($_POST["submit"])){
+
+			$gambar = $this->pindah_gambar();
+			if(!$gambar){
+				echo "<script>
+					alert('Gambar gagal diupload');
+					document.location.href='Admin/write_post';
+				</script>";
+				return false;
+			}
+
+			$judul = $this->input->post("judul");
+			$isi = $this->input->post("isi");
+			$kategori = $this->input->post("kategori");
+			$tanggal = $this->input->post("tanggal");
+			$uploader = $this->input->post("uploader");
+			$tag = $this->input->post("tag");
+
+			$data = array(
+					"id_posts" => "",
+					"judul" => $judul,
+					"gambar" => $gambar,
+					"isi" => nl2br($isi),
+					"kategori" => $kategori,
+					"tanggal" => $tanggal,
+					"uploader" => $uploader,
+					"tag" => $tag
+			);
+
+			//upload nama file ke database
+			$upload = $this->admin_model->upload($data);
+			if($upload === 0){
+				echo "<script>
+					alert('Data gagal diupload');
+					document.location.href = 'Admin/write_post';
+				</script>";
+				return false;
+				
+			}else{
+				$this->session->set_flashdata("sukses", "sukses");
+				redirect("Admin/write_post");
+			}
+		}
+
+	}
+
+	// memindahkan file ke direktori server
+	public function pindah_gambar(){
+		
+		$namaFile =  $_FILES["userfile"]["name"];
+		$tmp_name = $_FILES["userfile"]["tmp_name"];
+		$size = $_FILES["userfile"]["size"];
+		$error = $_FILES["userfile"]["error"];
+
+		// cek user upload file atau tidak
+		if($error === 4){
+			echo "<script>
+				alert('You must upload file');
+			</script>";
+			return FALSE;
+		}
+
+		//cek yang diupload gambar atau bukan
+		$ekstensiValid = ["jpg", "jpeg", "png"];
+		$ekstensiGambar = explode(".", $namaFile);
+		$ekstensiGambar = strtolower(end($ekstensiGambar));
+
+		if(!in_array($ekstensiGambar, $ekstensiValid)){
+			echo "<script>
+				alert('Invalid image extension');
+			</script>";
+			return false;
+		}
+
+		//cek ukuran melebihi ukuran maks atau tidak
+		$maxSize = 1000000;
+		if($size > $maxSize){
+			echo "<script>
+				alert('Your image is too big');
+			</script>";
+			return false;
+		}
+
+		//memberi nama unik ke nama file
+		$namaFileBaru = $namaFile.uniqid();
+		$namaFileBaru .= ".";
+		$namaFileBaru .= $ekstensiGambar;
+
+		//pindahkan image ke direktori
+		move_uploaded_file($tmp_name, "upload/".$namaFileBaru);
+
+		return $namaFileBaru;
 
 	}
 

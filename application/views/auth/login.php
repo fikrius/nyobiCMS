@@ -8,6 +8,10 @@
 
     <!-- Font Awesome -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+
+    <!-- CDN JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
     
   </head>
 
@@ -39,7 +43,7 @@
 					<!-- Awal form -->
 					<?php echo form_open('auth/login', 'class="loginForm" id="loginForm"'); ?>
 						<div class="form-group">
-							<label for="username">Username <sup class="text-danger">*</sup></label>
+							<label for="username">Username</label>
 							<input type="text" name="username" class="form-control" id="username" required>
 							<?php if($this->session->flashdata("gagal") == "username"){ ?>
 								<div class="alert alert-danger" role="alert">
@@ -48,15 +52,20 @@
 							<?php } ?>
 						</div>
 						<div class="form-group">
-							<label for="password">Password <sup class="text-danger">*</sup></label>
-							<input type="password" name="password" class="form-control" id="password" required>
-							<?php if($this->session->flashdata("gagal") == "password"){ ?>
-								<div class="alert alert-danger" role="alert">
-									Password salah!
+							<div class="input-group">
+								<label class="input-group" for="password">Password</label>
+								<input type="password" name="password" id="password" class="input-group form-control" id="password" required>
+								<div class="input-group-prepend">
+									<span id="toggle_password" class="input-group-text"><i class="fas fa-eye"></i></span>
 								</div>
-							<?php } ?>
+								<?php if($this->session->flashdata("gagal") == "password"){ ?>
+									<div class="alert alert-danger" role="alert">
+										Password salah!
+									</div>
+								<?php } ?>
+								</div>
 						</div>
-						<input type="submit" name="submit" class="btn btn-primary" value="Submit">
+						<input type="submit" name="submit" id="submit" class="btn btn-primary" value="Submit">
 					</form>
 				 	<!-- Akhir form -->
 				</div>
@@ -67,3 +76,6 @@
 		<!-- Akhir div container -->
 	</section>
 	<!-- Akhir section login -->
+
+	<!-- Toggle password -->
+	<script type="text/javascript" src="<?php echo base_url('assets/js/toggle_password.js'); ?>"></script>

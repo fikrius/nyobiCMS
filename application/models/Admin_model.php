@@ -39,6 +39,18 @@ class Admin_model extends CI_Model{
 		return $query;
 	}
 
+	// tampil post
+	public function tampil_post(){
+		$this->db->select("judul, SUBSTRING(isi, 1, 50) as isi, kategori, tanggal, tag");
+		$this->db->from("posts");
+		return $this->db->get();
+	}
+
+	//tampil profile
+	public function get_profile(){
+		$query = $this->db->get("akun");
+		return $query;
+	}
 
 
 }

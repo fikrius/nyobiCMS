@@ -94,110 +94,67 @@
       </h1>
     </section>
 
-    <!-- datatabel -->
-    <section class="feedback" style="margin-top: 2rem; margin-left: 2rem;">
-      <a class="btn btn-danger" style="margin-right: 3rem; margin-bottom: 2rem;" href="">Delete Selected</a>
-      <a class="btn btn-danger" style="margin-right: 3rem; margin-bottom: 2rem;" href="">Delete All</a>
-      <!-- datatables -->
-      <table class="table table-hover" id="tableFeedback">
-        <thead>
-          
-          <th>Check</th>
-          <th>No</th>
-          <th>Name</th>
-          <th>Message</th>
-          <th>Message Time</th>
-          <th class="text-center">Action</th>
-        
-        </thead>
+    <?php foreach($profile_data->result() as $row){ ?>
+    <!-- profil -->
+    <section class="profile" style="margin-top: 4rem;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <form method="post" action="edit_profile">
+              <div class="form-group">
+                <label for="nama">Nama :</label>
+                <input type="text" name="nama" id="nama" class="form-control" value="<?php echo $row->nama; ?>" disabled>
+              </div>
+              <div class="form-group">
+                <label for="username">Username :</label>
+                <input type="text" name="username" id="username" class="form-control" value="<?php echo $row->username; ?>" disabled>
+              </div>
+              <div class="form-group">
+                <label for="password">Password :</label>
+                <input type="password" name="password" id="password" class="form-control" value="<?php echo $row->password; ?>" disabled>
+              </div>
+              <div class="form-group">
+                <label for="profesi">Profesi :</label>
+                <input type="text" name="profesi" id="profesi" class="form-control" value="<?php echo $row->profesi; ?>" disabled>
+              </div>
+              <div class="form-group">
+                <!-- cek apakah gambar ada atau tidak (null atau tidak)-->
+                <?php 
+                  $gambar = $row->foto_profil;
+                  if($gambar !== NULL){
+                    $gambar = $row->foto_profil;
+                  }
 
-        <tbody>
-          <?php $no = 1; ?>
-          <?php foreach($get_feedback->result() as $row){ ?>
-            <tr>
-              <th><input type="checkbox" name="checkbox"></th>
-              <td><?php echo $no; ?></td>
-              <td><?php echo $row->nama; ?></td>
-              <td><?php echo $row->pesan; ?></td>
-              <td><?php echo $row->waktu_pesan; ?></td>
-              <td><button class="btn btn-primary" data-toggle="modal" data-target="#details">Details</button> <button class="btn btn-danger" onclick="return confirm('Do you want to delete this message?')">Delete</button></td>
-            </tr>
-            <?php $no++; ?>
-          <?php } ?>
-        </tbody>
-      </table>
-      <!-- /datatables -->
+                  $gambar = "none.png";
+                ?>
+                <label for="foto_profil">Foto profil :</label>
+                <input type="file" name="foto_profil" id="foto_profil" disabled>
+                <span class="tampil-foto">
+                  <img src="<?php echo base_url('upload/'.$gambar); ?>" class="rounded" style="width: 10rem; height: 10rem;">
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="tanggal_edit">Tanggal edit :</label>
+                <input type="text" name="tanggal_edit" id="tanggal_edit" class="form-control" value="<?php echo $row->tanggal_edit; ?>" disabled>
+              </div>
+              <div class="form-group">
+                <label for="tanggal_dibuat">Tanggal dibuat :</label>
+                <input type="text" name="tanggal_dibuat" id="tanggal_dibuat" class="form-control" value="<?php echo $row->tanggal_dibuat; ?>" disabled>
+              </div>
+              <input type="hidden" class="btn btn-success" id="edit" style="width: 10rem;" value="Edit">
+              <input type="hidden" class="btn btn-success" id="cancel" style="width: 10rem;" value="Cancel">
+              <input type="hidden" class="btn btn-primary" id="save" style="width: 10rem;" value="Save">
+            </form>
+          </div>
+        </div>
+      </div>
     </section>
-    <!-- /datatabel -->
-
+    <!-- profil -->
+    <?php } ?>
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- Modal -->
-  <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="details">Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-        
-        <table class="table table-hover">
-          <tr>
-            <td>Nama</td>
-            <td>:</td>
-            <td><?php echo $row->nama; ?></td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td>:</td>
-            <td><?php echo $row->email; ?></td>
-          </tr>
-          <tr>
-            <td>Website</td>
-            <td>:</td>
-            <td><?php echo $row->website; ?></td>
-          </tr>
-          <tr>
-            <td>Phone</td>
-            <td>:</td>
-            <td><?php echo $row->telepon; ?></td>
-          </tr>
-          <tr>
-            <td>Message</td>
-            <td>:</td>
-            <td><?php echo $row->pesan; ?></td>
-          </tr>
-          <tr>
-            <td>Time Message</td>
-            <td>:</td>
-            <td><?php echo $row->waktu_pesan; ?></td>
-          </tr>
-        </table>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal -->
-
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="<?php echo base_url('assets/datatables/js/jquery-3.2.1.min.js'); ?>"></script>
-
-  <script>
-    $(document).ready(function(){
-        $('#tableFeedback').DataTable();
-    });
-  </script>
-
-  <!-- Include dataTables  -->
-  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js'); ?>"></script>
-  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js'); ?>"></script>
-
-    
+  <!-- Press the edit button -->
+  <script type="text/javascript" src="<?php echo base_url('assets/js/press_edit.js'); ?>"></script>

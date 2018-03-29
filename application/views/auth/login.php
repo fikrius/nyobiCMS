@@ -6,9 +6,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Font Awesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
-
     <!-- CDN JQUERY -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -56,7 +53,7 @@
 								<label class="input-group" for="password">Password</label>
 								<input type="password" name="password" id="password" class="input-group form-control" id="password" required>
 								<div class="input-group-prepend">
-									<span id="toggle_password" class="input-group-text"><i class="fas fa-eye"></i></span>
+									<span id="toggle_password" class="input-group-text"></span>
 								</div>
 								<?php if($this->session->flashdata("gagal") == "password"){ ?>
 									<div class="alert alert-danger" role="alert">

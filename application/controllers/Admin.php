@@ -136,12 +136,26 @@ class Admin extends CI_Controller{
 
 	}
 
+	// Menampilkan daftar post
 	public function post_list(){
 		$data["jumlah_pesan"] = $this->admin_model->jumlah_pesan();
 		$data["pesan_limit"] = $this->admin_model->get_cuplikan_pesan();
+		$data["tampil_post"] = $this->admin_model->tampil_post();
 
 		$this->load->view("templates/admin/header");
 		$this->load->view("admin/post_list", $data);
+		$this->load->view("templates/admin/left_side");
+		$this->load->view("templates/admin/footer");
+	}
+
+	// Profile Admin
+	public function profile(){
+		$data["jumlah_pesan"] = $this->admin_model->jumlah_pesan();
+		$data["pesan_limit"] = $this->admin_model->get_cuplikan_pesan();
+		$data["profile_data"] = $this->admin_model->get_profile();
+
+		$this->load->view("templates/admin/header");
+		$this->load->view("admin/profile", $data);
 		$this->load->view("templates/admin/left_side");
 		$this->load->view("templates/admin/footer");
 	}

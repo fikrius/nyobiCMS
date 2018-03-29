@@ -47,15 +47,22 @@
     
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
+            <?php  
+              $gambar = $this->session->userdata("foto_profil");
+              if($gambar !== NULL){
+                $gambar = $this->session->userdata("foto_profil");
+              }
+
+              $gambar = "none.png";
+            ?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?php echo base_url('upload/'.$gambar); ?>" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $this->session->userdata("nama"); ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                <img src="<?php echo base_url('upload/'.$gambar); ?>" class="rounded" alt="User Image">
                 <p>
                   <?php echo $this->session->userdata("nama"); ?> - <?php echo $this->session->userdata("profesi"); ?>
                   <small>Member since <?php echo $this->session->userdata("tanggal_dibuat"); ?></small>
@@ -64,7 +71,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="<?php echo site_url('admin/profile'); ?>" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?php echo site_url('admin/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>

@@ -40,6 +40,7 @@ class Auth extends CI_Controller{
 					$data_session["sess_user"] = $hasil->username;
 					$data_session["nama"] = $hasil->nama;
 					$data_session["profesi"] = $hasil->profesi;
+					$data_session["foto_profil"] = $hasil->foto_profil;
 					$data_session["tanggal_dibuat"] = $hasil->tanggal_dibuat;
 				}
 
